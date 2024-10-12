@@ -5,13 +5,14 @@ let btns = ["red", "green", "yellow", "purple"];
 
 let started = false;
 let level = 0;
-
+let body=document.querySelector('body');
 let h2 = document.querySelector("h2");
 const start = document.querySelector('#start');
 const restart = document.querySelector('#restart');
 
 start.addEventListener("click", function () {
   if (started === false) {
+    alert('Repeat color even as level increase.');
     userSeq = [];
     level = 0;
     // console.log("game is started");
@@ -23,9 +24,13 @@ start.addEventListener("click", function () {
 function levelUp() {
   userSeq = [];
   level++;
-  h2.innerHTML = `Level ${level}`;
-
-
+  h2.innerHTML = `you are on  ${level} Level 🤗`;
+  if (level >= 5) {
+    body.style.backgroundColor = '#6da5aeda'
+  }
+  if (level >= 10) {
+    body.style.backgroundColor = '#2095a7c2'
+  }
   let randIdx = Math.floor(Math.random() * 4);
   let randColor = btns[randIdx];
   let randBtn = document.querySelector(`#${randColor}`);
@@ -76,12 +81,12 @@ function btnPress() {
   let btn = this;
   userFlash(btn);
 
-    userColor = btn.getAttribute("id");
-    // console.log(userColor);
-    userSeq.push(userColor);
-    console.log('user', userSeq);
+  userColor = btn.getAttribute("id");
+  // console.log(userColor);
+  userSeq.push(userColor);
+  console.log('user', userSeq);
 
-  checkAns(userSeq.length-1);
+  checkAns(userSeq.length - 1);
 }
 
 let allBtns = document.querySelectorAll(".btn");
@@ -94,10 +99,11 @@ function reset() {
   gameSeq = [];
   userSeq = [];
   level = 0;
+  body.style.backgroundColor = '#6da5ae55'
 }
 
 restart.addEventListener('click', () => {
-      reset();
+  reset();
   h2.innerHTML = `wait 3 sec to restart game `;
 
   setTimeout(() => {
